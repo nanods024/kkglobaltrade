@@ -23,6 +23,10 @@ connectDB();
 
 const app = express();
 
+// Render/NGINX passes client IPs via X-Forwarded-For; trust one proxy hop
+// so express-rate-limit can correctly identify users behind the platform.
+app.set('trust proxy', 1);
+
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
@@ -63,6 +67,14 @@ app.use('/api', limiter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // --- API routes ---
+app.get('/api', (req, res) =>
+  res.json({
+    success: true,
+    message: 'KK Global Trade API is running',
+    environment: process.env.NODE_ENV || 'development',
+  })
+);
+
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
