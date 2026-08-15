@@ -58,6 +58,22 @@ app.use('/api/enquiries', enquiryRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/company', companyRoutes);
 
+app.get('/', (req, res) =>
+  res.json({
+    success: true,
+    message: 'KK Global Trade API is running',
+    environment: process.env.NODE_ENV || 'development',
+  })
+);
+
+app.get('/health', (req, res) =>
+  res.json({
+    success: true,
+    message: 'Healthy',
+    environment: process.env.NODE_ENV || 'development',
+  })
+);
+
 app.get('/api/health', (req, res) => res.json({ success: true, message: 'KK Global Trade API is running' }));
 
 app.use(notFound);
