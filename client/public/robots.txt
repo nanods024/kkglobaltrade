@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Add a Sitemap directive here once sitemap.xml generation is wired up
+# (see README.md "What's deliberately not built yet").
